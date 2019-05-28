@@ -299,10 +299,11 @@ function move(){
 var idcheck = 200;
 	while(idcheck >=0){
 	var c = document.getElementById(idcheck);
-	var d = document.getElementById(idcheck + 10);
+	idcheck1 = idcheck + 10;
+	var d = document.getElementById(idcheck1);
 	if(c.innerHTML==1||c.innerHTML==2||c.innerHTML==3||c.innerHTML==4||c.innerHTML==5){
-	if(d.innerHTML <8){c = c+10;}
-	else{d.innerHTML = c.innerHTML;c.innerHTML = 0;}
+	if(d.innerHTML <8){c = c+10;return 0;}
+	else{d.innerHTML = c.innerHTML;c.innerHTML = 0;return 1;}
 	}
 	idcheck--;
 	}
@@ -310,8 +311,8 @@ var idcheck = 200;
 
 function game(){
 brick_produce();
-while(1){
-let timerId = setInterval(() => move(), 1500);
+while(move()){
+let timerId = window.setInterval(move(), 1500);
 }
 }
 game()

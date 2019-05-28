@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
 <head>
+
 <style>
 	table td {background-color: lightblue; width : 60px;height: 40px;}
 	table th {background-color: white; width : 60px;height: 40px;}
@@ -246,11 +247,11 @@
 		<td	id = "195"></td>
 		<td	id = "196"></td>
 		<td	id = "197"></td>
-		<td	id = "198"></td>
-		<td	id = "199"></td>
+		<td	id = "a198"></td>
+		<td	id = "a199"></td>
 	</tr>	
 	<tr>
-		<th id = "200">9</th>
+		<th id = "a200">9</th>
 		<th id = "201">9</th>
 		<th	id = "202">9</th>
 		<th	id = "203">9</th>
@@ -298,12 +299,13 @@ brick_cont('24');
 function move(){
 var idcheck = 200;
 	while(idcheck >=0){
-	var c = document.getElementById(idcheck);
-	idcheck1 = idcheck + 10;
-	var d = document.getElementById(idcheck1);
-	if(c.innerHTML==1||c.innerHTML==2||c.innerHTML==3||c.innerHTML==4||c.innerHTML==5){
-	if(d.innerHTML <8){c = c+10;return 0;}
-	else{d.innerHTML = c.innerHTML;c.innerHTML = 0;return 1;}
+		var idcheck1 = "'a" + idcheck + "'";
+		var idcheck2 = "'" + idcheck + 10 + "'";
+		var c = document.getElementById(idcheck1);
+		var d = document.getElementById(idcheck2);
+		if(c.innerHTML==1||c.innerHTML==2||c.innerHTML==3||c.innerHTML==4||c.innerHTML==5){
+			if(d.innerHTML <8){c = c+10;return 0;}
+			else{d.innerHTML = c.innerHTML;c.innerHTML = 0;return 1;}
 	}
 	idcheck--;
 	}
@@ -312,7 +314,7 @@ var idcheck = 200;
 function game(){
 brick_produce();
 while(move()){
-let timerId = window.setInterval(move(), 1500);
+let timerId = window.setInterval(move, 1500);
 }
 }
 game()

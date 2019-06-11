@@ -3,13 +3,21 @@
 <head>
 
 <style>
-	table td {background-color: lightblue; width : 60px;height: 40px;}
-	table th {background-color: white; width : 60px;height: 40px;}
-	</style>
+	table td {background-color: lightblue; width : 60px;height: 30px;}
+	table th {background-color: white;color :white ; width : 60px;height: 40px;}
+	//#button1 {  position: absolute;  left: 120px; top: 10px; }
+	//#button3 {  position: absolute;  left: 200px; top: 10px; }
+	//#button2 {  position: absolute;  left: 160px; top: 50px; }
+		body {font-family: "Times New Roman", Times, serif; font-size : 30px;}	</style>
 	
 </head>
 <body>
 <div> 
+
+
+<button id="button1" onclick="left()">	 LEFT	</button>
+<button id="button2" onclick="down()">	DOWN	</button>
+<button id="button3" onclick="right()">	RIGHT	</button> 
 <table>
 	<tr>
 		<td id = "a00">0</td>
@@ -265,15 +273,101 @@
 	</tr>	
 	
 </table>
+<div id= "points"></div>
 </div>
 <script>
 var brick1id = "e00";
 var brick2id = "e01";
 var brick3id = "e02";
-let timestep = 900;
+let timestep = 1000;
 var points = 0;
 
+function dropdown(){
 
+	var i;
+	var check1id;
+	var check2id;
+	i=18;
+	var l = 0;
+	while (i >= 0){
+		var o = 'a'
+		while (o != "k"){
+			if (i<10){
+				check1id = o + "0" + i;
+				l = i + 1
+				if(i <9){
+				check2id = o + "0" + l ;
+				}
+				if(i == 9){
+				check2id = o + l ;
+				}
+				}
+			if ( i > 9 ){
+				check1id = o + i;
+				l = i + 1
+				check2id = o + l ;
+			}
+			check1 = document.getElementById(check1id);
+			check2 = document.getElementById(check2id);
+			if(check2.innerHTML == '0' && check1.innerHTML != '0'){
+				check2.innerHTML = check1.innerHTML;
+				check1.innerHTML = '0';
+				
+			}
+			
+			
+
+			o = String.fromCharCode(o.charCodeAt(0) + 1);
+			}
+			i--;
+			}
+}
+
+function colour(){
+	var check1id;
+	var i=20;
+	while (i >= 0){
+		var o = 'a'
+		while (o != "k"){
+			if (i<10){
+				check1id = o + "0" + i;
+				}
+			if ( i > 9 ){
+				check1id = o + i;
+
+			}
+			check1 = document.getElementById(check1id);
+			if(check1.innerHTML == '1' || check1.innerHTML == "11"){
+				check1.style.backgroundColor = "red";
+				check1.style.color = "red";
+			}
+			if(check1.innerHTML == '2' || check1.innerHTML == "12"){
+				check1.style.backgroundColor = "blue";
+				check1.style.color = "blue";
+			}
+			if(check1.innerHTML == '3' || check1.innerHTML == "13"){
+				check1.style.backgroundColor = "green";
+				check1.style.color = "green";
+			}
+			if(check1.innerHTML == '0'){
+				check1.style.backgroundColor = "black";
+				check1.style.color = "black";
+			}
+			if(check1.innerHTML == '9'){
+				check1.style.backgroundColor = "white";
+				check1.style.color = "white";
+			}
+			if(check1.innerHTML == 10 || check1.innerHTML > 14 ){
+			check1.innerHTML = check1.innerHTML - 10;
+			}
+			
+
+			o = String.fromCharCode(o.charCodeAt(0) + 1);
+			}
+			i--;
+			}
+		
+		}
 
 function brick_cont(id){
 var a = Math.random()* 3;
@@ -281,10 +375,10 @@ if(a <=3){
 document.getElementById(id).innerHTML = "1";
 }
 if(a <=2){
-document.getElementById(id).innerHTML = "1";
+document.getElementById(id).innerHTML = "2";
 }
 if(a <=1){
-document.getElementById(id).innerHTML = "1";
+document.getElementById(id).innerHTML = "3";
 }
 }
 
@@ -299,11 +393,12 @@ brick_cont(brick3id);
 
 function drop(){
 var i = 19;
-var check1id;
+var check1id ; 
+var check2id;
 var check1 = document.getElementById('a01');
 var check2 = document.getElementById('a01');
 var check3 = document.getElementById('a01');
-
+var counter = document.getElementById('points');
 
 	while (i >= 0){
 		var o = 'a'
@@ -322,7 +417,8 @@ var check3 = document.getElementById('a01');
 			check2.innerHTML = "0";
 			check3.innerHTML = "0";
 			points = points + 100;
-			console.log(points);
+			counter.innerHTML = points;
+			
 			
 			}
 			check3 = check2;
@@ -353,7 +449,6 @@ var check3 = document.getElementById('a01');
 			check2.innerHTML = "0";
 			check3.innerHTML = "0";
 			points = points + 100;
-			console.log(points);
 			
 			}
 			check3 = check2;
@@ -367,9 +462,11 @@ var check3 = document.getElementById('a01');
 		o = String.fromCharCode(o.charCodeAt(0) + 1);
 	}
 
-
-}
-
+		dropdown();
+		dropdown();
+		dropdown();
+		}
+		
 function down(){
 	var brick1 = document.getElementById(brick1id);
 	var brick2 = document.getElementById(brick2id);
@@ -446,7 +543,7 @@ function down(){
 	next.innerHTML = brick1.innerHTML;
 	brick1.innerHTML = "0";
 	}
-	
+	colour();
 }
 
 function right(){
@@ -478,7 +575,7 @@ if(newidcont.innerHTML == '0'){
 	brick3.innerHTML = '0';
 }
 
-
+colour();
 
 }
 
@@ -511,27 +608,20 @@ if(newidcont.innerHTML == '0'){
 	brick3.innerHTML = '0';
 
 }
+colour();
 }
 
-function scroll(){
-	var brick1 = document.getElementById(brick1id);
-	var brick2 = document.getElementById(brick2id);
-	var	brick3 = document.getElementById(brick3id);
-	var buffer = brick1;
-	brick1.innerHTML = brick2.innerHTML;
-	brick2.innerHTML = brick3.innerHTML;
-	brick3.innerHTML = buffer.innerHTML;
 
-}
 
 
 function game(){
+
 brick_produce();
-//let timerId = window.setInterval(down, timestep);
-//timerId = window.setInterval(left, 1000);
+colour();
+
+let timerId = window.setInterval(down, timestep);
+// timerId = window.setInterval(left, 1000);
 //timerId = window.setInterval(right, 400);
-down();down();down();down();down();down();down();down();down();down();down();down();down();down();down();down();down();down();down();down();down();
-down();down();down();down();down();down();down();down();down();down();down();down();down();down();down();down();down();down();down();down()
 
 }
 game()
